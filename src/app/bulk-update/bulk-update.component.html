@@ -1,0 +1,67 @@
+<div class="bu-container">
+  <div class="bu-table bu-item">
+    <mat-table [dataSource]="ads">
+      <ng-container cdkColumnDef="select">
+        <mat-header-cell
+          ngClass="select-col"
+          *cdkHeaderCellDef
+        ></mat-header-cell>
+        <mat-cell ngClass="select-col" *cdkCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? select(row) : null"
+            [checked]="selectedAd === row"
+          ></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="packageName">
+        <mat-header-cell ngClass="text-col" *cdkHeaderCellDef
+          >Package</mat-header-cell
+        >
+        <mat-cell ngClass="text-col" *cdkCellDef="let row">
+          {{ row.package.name }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="containerName">
+        <mat-header-cell ngClass="text-col" *cdkHeaderCellDef
+          >Container</mat-header-cell
+        >
+        <mat-cell ngClass="text-col" *cdkCellDef="let row">
+          {{ row.container.name }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="messageId">
+        <mat-header-cell ngClass="msg-col" *cdkHeaderCellDef
+          >Message Id</mat-header-cell
+        >
+        <mat-cell ngClass="msg-col" *cdkCellDef="let row">
+          {{ row.message.id }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        mat-ripple
+        *cdkRowDef="let row; columns: displayedColumns"
+        (click)="select(row)"
+      ></mat-row>
+    </mat-table>
+  </div>
+  <div class="bu-edit bu-item">
+    <h3>Select Container and Message</h3>
+
+    <app-container-autocomplete
+      [adMap]="selectedAd"
+      [containers]="containers"
+      (containerSelect)="handleContainerSelect($event)"
+    ></app-container-autocomplete>
+
+    <ng-container *ngIf="selectedContainer">
+      <mat-label>Select a Message</mat-label>
+      <app-message-list [container]="selectedContainer"></app-message-list>
+    </ng-container>
+  </div>
+</div>

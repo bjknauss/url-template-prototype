@@ -1,0 +1,5 @@
+<mat-selection-list *ngIf="container">
+  <mat-list-option *ngFor="let msg of container.messages">
+    {{ msg.message }}
+  </mat-list-option>
+</mat-selection-list>

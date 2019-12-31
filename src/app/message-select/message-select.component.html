@@ -1,0 +1,11 @@
+<mat-form-field>
+  <mat-label>Select a Message</mat-label>
+  <mat-select
+    [value]="selectedMessage"
+    (selectionChange)="handleSelection($event)"
+  >
+    <mat-option *ngFor="let msg of container.messages" [value]="msg">
+      {{ msg.message }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

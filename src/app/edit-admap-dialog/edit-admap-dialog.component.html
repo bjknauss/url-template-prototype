@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Select Container and Message</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Package"
+      readonly
+      [value]="data.package.name"
+    />
+  </mat-form-field>
+  <app-container-autocomplete
+    [containers]="containers"
+    [adMap]="data"
+    (containerSelect)="handleContainerSelect($event)"
+  ></app-container-autocomplete>
+  <app-message-select
+    [container]="selectedContainer"
+    [message]="selectedMessage"
+    (messageSelect)="handleMessageSelect($event)"
+  ></app-message-select>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="">Cancel</button>
+  <button mat-button [disabled]="!valid" (click)="save()">Save</button>
+</div>
